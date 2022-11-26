@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_e_03_flutter/landing/screens/landing_screen.dart';
+import 'package:pbp_e_03_flutter/authentication/screens/login_screen.dart';
 
 void main() => runApp(const App());
 
@@ -13,6 +13,6 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: LandingScreen());
+        home: LoginScreen());
   }
 }

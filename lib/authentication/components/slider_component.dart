@@ -2,9 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class SliderComponent extends StatefulWidget {
-  const SliderComponent({super.key, required this.items});
+  const SliderComponent({super.key, required this.items, required this.height});
 
   final List<Widget> items;
+  final double height;
 
   @override
   State<SliderComponent> createState() => _SliderComponentState();
@@ -21,7 +22,7 @@ class _SliderComponentState extends State<SliderComponent> {
           items: widget.items,
           carouselController: _controller,
           options: CarouselOptions(
-              height: MediaQuery.of(context).size.height * 0.725,
+              height: widget.height,
               viewportFraction: 1.0,
               enlargeCenterPage: false,
               autoPlay: true,
@@ -41,7 +42,8 @@ class _SliderComponentState extends State<SliderComponent> {
               child: Container(
                 width: 12.0,
                 height: 12.0,
-                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: (Theme.of(context).brightness == Brightness.dark
