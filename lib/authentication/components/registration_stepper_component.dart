@@ -3,7 +3,7 @@ import 'package:pbp_e_03_flutter/authentication/components/account_information_s
 import 'package:pbp_e_03_flutter/authentication/components/password_information_step_component.dart';
 import 'package:pbp_e_03_flutter/authentication/components/stepper_controller_component.dart';
 import 'package:pbp_e_03_flutter/authentication/models/email_validation_model.dart';
-import 'package:pbp_e_03_flutter/authentication/models/registration_model.dart';
+import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
@@ -39,7 +39,7 @@ class _RegistrationStepperComponentState
           "password_confirmation": _confirmationPassword,
         };
 
-        Registration response = await AuthenticationService.registerUser(body);
+        Token response = await AuthenticationService.registerUser(body);
 
         if (response.success) {
           String refreshToken = response.content!.refresh;

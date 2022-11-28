@@ -1,17 +1,16 @@
 // To parse this JSON data, do
 //
-//     final registration = registrationFromJson(jsonString);
+//     final token = tokenFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-Registration registrationFromJson(String str) =>
-    Registration.fromJson(json.decode(str));
+Token tokenFromJson(String str) => Token.fromJson(json.decode(str));
 
-String registrationToJson(Registration data) => json.encode(data.toJson());
+String tokenToJson(Token data) => json.encode(data.toJson());
 
-class Registration {
-  Registration({
+class Token {
+  Token({
     required this.success,
     this.content,
     required this.message,
@@ -21,7 +20,7 @@ class Registration {
   Content? content;
   String message;
 
-  factory Registration.fromJson(Map<String, dynamic> json) => Registration(
+  factory Token.fromJson(Map<String, dynamic> json) => Token(
         success: json["success"],
         content:
             json["content"] == null ? null : Content.fromJson(json["content"]),

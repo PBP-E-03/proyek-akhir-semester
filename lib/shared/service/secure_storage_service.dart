@@ -8,7 +8,10 @@ class SecureStorageService {
   }
 
   static Future<String?> read(String key) async {
-    String? value = await secureStorage.read(key: key);
-    return value;
+    return await secureStorage.read(key: key);
+  }
+
+  static Future<bool> has(String key) async {
+    return await secureStorage.containsKey(key: key);
   }
 }

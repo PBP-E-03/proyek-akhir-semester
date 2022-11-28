@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/authentication/screens/login_screen.dart';
+import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
+import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 
 void main() => runApp(const App());
 
@@ -13,6 +15,15 @@ class App extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: LoginScreen());
+        home: FutureBuilder(
+          future: AuthenticationService.isAuthenticated(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return snapshot.data! ? const HomeScreen() : LoginScreen();
+            }
+          },
+        ));
   }
 }
