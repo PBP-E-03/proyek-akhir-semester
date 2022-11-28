@@ -2,7 +2,11 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/authentication/components/slider_component.dart';
 import 'package:pbp_e_03_flutter/authentication/components/text_field_components.dart';
+import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
 import 'package:pbp_e_03_flutter/authentication/screens/registration_screen.dart';
+import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
+import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
+import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -130,28 +134,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (_loginFormKey.currentState!.validate()) {
-                                // var budget = {
-                                //   "title": _title,
-                                //   "amount": _amount,
-                                //   "type": _type,
-                                //   "date": dateInput.text
-                                // };
+                                Map<String, String> body = {
+                                  "email": _email,
+                                  "password": _password,
+                                };
 
-                                // Provider.of<BudgetModel>(context, listen: false)
-                                //     .addBudget(budget);
+                                dynamic response =
+                                    await AuthenticationService.loginUser(body);
 
-                                // _loginFormKey.currentState?.reset();
+                                if (response['refresh'] != null &&
+                                    response['access'] != null) {
+                                  SecureStorageService.write(
+                                      "refreshToken", response['refresh']);
+                                  SecureStorageService.write(
+                                      "accessToken", response['access']);
 
-                                // setState(() {
-                                //   _type = 'Choose Type';
-                                //   dateInput.text = "";
-                                // });
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text("Data has been saved!")));
+                                  Future.delayed(Duration.zero).then((value) =>
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MainLayoutScreen(),
+                                      )));
+                                } else {
+                                  Future.delayed(Duration.zero).then((value) =>
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  "Email or password are wrong"))));
+                                }
                               }
                             },
                             style: ElevatedButton.styleFrom(

@@ -11,6 +11,10 @@ class SecureStorageService {
     return await secureStorage.read(key: key);
   }
 
+  static Future<void> destroyAll() async {
+    await secureStorage.deleteAll();
+  }
+
   static Future<bool> has(String key) async {
     return await secureStorage.containsKey(key: key);
   }

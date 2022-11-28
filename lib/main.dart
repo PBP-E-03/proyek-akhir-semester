@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/authentication/screens/login_screen.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
 import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
+import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
 
 void main() => runApp(const App());
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,6 +15,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'GenerosiTree',
+        navigatorKey: navigatorKey,
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
@@ -21,7 +25,7 @@ class App extends StatelessWidget {
             if (snapshot.data == null) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return snapshot.data! ? const HomeScreen() : LoginScreen();
+              return snapshot.data! ? const MainLayoutScreen() : LoginScreen();
             }
           },
         ));

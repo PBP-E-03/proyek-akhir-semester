@@ -5,6 +5,7 @@ import 'package:pbp_e_03_flutter/authentication/components/stepper_controller_co
 import 'package:pbp_e_03_flutter/authentication/models/email_validation_model.dart';
 import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
+import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class RegistrationStepperComponent extends StatefulWidget {
@@ -46,6 +47,10 @@ class _RegistrationStepperComponentState
           String accessToken = response.content!.access;
           await SecureStorageService.write("refreshToken", refreshToken);
           await SecureStorageService.write("accessToken", accessToken);
+          Future.delayed(Duration.zero).then((value) =>
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => const MainLayoutScreen(),
+              )));
         } else {
           Future.delayed(Duration.zero).then((value) =>
               ScaffoldMessenger.of(context)
