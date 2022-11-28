@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/authentication/components/account_information_step_component.dart';
 import 'package:pbp_e_03_flutter/authentication/components/password_information_step_component.dart';
 import 'package:pbp_e_03_flutter/authentication/components/stepper_controller_component.dart';
+import 'package:pbp_e_03_flutter/authentication/models/email_validation_model.dart';
+import 'package:pbp_e_03_flutter/authentication/models/registration_model.dart';
+import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
+import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class RegistrationStepperComponent extends StatefulWidget {
   const RegistrationStepperComponent({super.key});
@@ -23,16 +27,50 @@ class _RegistrationStepperComponentState
   String _password = "";
   String _confirmationPassword = "";
 
-  void nextStep() {
+  void nextStep() async {
     if (_step == getSteps().length - 1) {
-      if (_passwordInformationFormKey.currentState!.validate()) {}
-      //Do something with this information
-      print("test cuy");
+      if (_passwordInformationFormKey.currentState!.validate()) {
+        Map<String, String> body = {
+          "username": _name,
+          "email": _email,
+          "phone": _phone,
+          "address": _address,
+          "password": _password,
+          "password_confirmation": _confirmationPassword,
+        };
+
+        Registration response = await AuthenticationService.registerUser(body);
+
+        if (response.success) {
+          String refreshToken = response.content!.refresh;
+          String accessToken = response.content!.access;
+          await SecureStorageService.write("refreshToken", refreshToken);
+          await SecureStorageService.write("accessToken", accessToken);
+        } else {
+          Future.delayed(Duration.zero).then((value) =>
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(response.message))));
+        }
+      }
     } else if (_userInformationFormKey.currentState!.validate()) {
-      print("test");
-      setState(() {
-        _step += 1;
-      });
+      EmailValidation response =
+          await AuthenticationService.validateEmail(_email);
+
+      if (response.success) {
+        if (!response.content!.isExist) {
+          setState(() {
+            _step += 1;
+          });
+        } else {
+          Future.delayed(Duration.zero).then((value) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Email already used!"))));
+        }
+      } else {
+        Future.delayed(Duration.zero).then((value) =>
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(response.message))));
+      }
     }
   }
 
@@ -62,7 +100,7 @@ class _RegistrationStepperComponentState
                 AccountInformationStepComponent(
                   userInformationFormKey: _userInformationFormKey,
                   setEmail: ((String? value) => setState(() {
-                        _email = value!;
+                        _email = value!.toLowerCase();
                       })),
                   setPhone: ((String? value) => setState(() {
                         _phone = value!;
@@ -71,7 +109,7 @@ class _RegistrationStepperComponentState
                         _name = value!;
                       })),
                   setAddress: ((String? value) => setState(() {
-                        _email = value!;
+                        _address = value!;
                       })),
                 ),
               ],
@@ -84,7 +122,7 @@ class _RegistrationStepperComponentState
         ),
       ),
       Step(
-          state: _step > 1 ? StepState.complete : StepState.indexed,
+          state: _step > 1 ? StepState.complete : StepState.disabled,
           isActive: _step >= 1,
           title: const Text(""),
           content: SizedBox(
