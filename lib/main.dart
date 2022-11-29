@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/authentication/screens/login_screen.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
-import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
 
 void main() => runApp(const App());
@@ -15,6 +14,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'GenerosiTree',
+        debugShowCheckedModeBanner:
+            const String.fromEnvironment("ENV") == "prod" ? false : true,
         navigatorKey: navigatorKey,
         theme: ThemeData(
           primarySwatch: Colors.green,
