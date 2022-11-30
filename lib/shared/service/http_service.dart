@@ -12,7 +12,6 @@ import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 class HttpService {
   static const String _baseUrl = String.fromEnvironment("API_URL");
   static final Map<String, String> headers = {
-    "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   };
 
