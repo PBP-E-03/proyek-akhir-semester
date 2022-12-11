@@ -40,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: const BottomNavigationBarComponents());
+        bottomNavigationBar: const BottomNavigationBarComponents(
+          currentPage: 'Home',
+        ));
   }
 }
