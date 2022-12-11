@@ -5,7 +5,7 @@ import 'package:pbp_e_03_flutter/authentication/components/text_field_components
 import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
 import 'package:pbp_e_03_flutter/authentication/screens/registration_screen.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
-import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
+import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -157,8 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Future.delayed(Duration.zero).then((value) =>
                                     Navigator.of(context)
                                         .pushReplacement(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MainLayoutScreen(),
+                                      builder: (context) => const HomeScreen(),
                                     )));
                               } else {
                                 Future.delayed(Duration.zero).then((value) =>
