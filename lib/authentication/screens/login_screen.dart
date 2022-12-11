@@ -44,17 +44,17 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
+        fit: StackFit.expand,
         children: [
           Column(children: [
             Padding(
-              padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 4),
               child: Image.asset("assets/images/logo-black.png",
                   fit: BoxFit.cover, width: 212),
             ),
             SliderComponent(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.525,
                 items: widget.list
                     .map((item) => Padding(
                           padding: const EdgeInsets.symmetric(
@@ -87,98 +87,102 @@ class _LoginScreenState extends State<LoginScreen> {
                         ))
                     .toList())
           ]),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-              child: Form(
-                key: _loginFormKey,
-                child: Column(
-                  children: [
-                    TextFieldComponent(
-                        keyboardType: TextInputType.emailAddress,
-                        labelText: "Email",
-                        hintText: "generous.people@mail.com",
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(12),
+                child: Form(
+                  key: _loginFormKey,
+                  child: Column(
+                    children: [
+                      TextFieldComponent(
+                          keyboardType: TextInputType.emailAddress,
+                          labelText: "Email",
+                          hintText: "generous.people@mail.com",
+                          action: (String? value) {
+                            setState(() {
+                              _email = value!;
+                            });
+                          },
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email cannot be empty!';
+                            } else if (!EmailValidator.validate(value)) {
+                              return 'Email is not valid!';
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextFieldComponent(
+                        isTextObscured: true,
+                        labelText: "Password",
                         action: (String? value) {
                           setState(() {
-                            _email = value!;
+                            _password = value!;
                           });
                         },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return 'Email cannot be empty!';
-                          } else if (!EmailValidator.validate(value)) {
-                            return 'Email is not valid!';
+                            return 'Password cannot be empty!';
                           }
                           return null;
-                        }),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFieldComponent(
-                      isTextObscured: true,
-                      labelText: "Password",
-                      action: (String? value) {
-                        setState(() {
-                          _password = value!;
-                        });
-                      },
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Password cannot be empty!';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (_loginFormKey.currentState!.validate()) {
-                                Map<String, String> body = {
-                                  "email": _email,
-                                  "password": _password,
-                                };
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (_loginFormKey.currentState!.validate()) {
+                              Map<String, String> body = {
+                                "email": _email,
+                                "password": _password,
+                              };
 
-                                dynamic response =
-                                    await AuthenticationService.loginUser(body);
+                              dynamic response =
+                                  await AuthenticationService.loginUser(body);
 
-                                if (response['refresh'] != null &&
-                                    response['access'] != null) {
-                                  SecureStorageService.write(
-                                      "refreshToken", response['refresh']);
-                                  SecureStorageService.write(
-                                      "accessToken", response['access']);
+                              if (response['refresh'] != null &&
+                                  response['access'] != null) {
+                                SecureStorageService.write(
+                                    "refreshToken", response['refresh']);
+                                SecureStorageService.write(
+                                    "accessToken", response['access']);
 
-                                  Future.delayed(Duration.zero).then((value) =>
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MainLayoutScreen(),
-                                      )));
-                                } else {
-                                  Future.delayed(Duration.zero).then((value) =>
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  "Email or password are wrong"))));
-                                }
+                                Future.delayed(Duration.zero).then((value) =>
+                                    Navigator.of(context)
+                                        .pushReplacement(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const MainLayoutScreen(),
+                                    )));
+                              } else {
+                                Future.delayed(Duration.zero).then((value) =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Email or password are wrong"))));
                               }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              minimumSize: const Size.fromHeight(50),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                            ),
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(fontSize: 20),
-                            ))),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            minimumSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          ),
+                          child: const Text(
+                            'Login',
+                            style: TextStyle(fontSize: 20),
+                          )),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text("Doesn't have an account?",
@@ -202,9 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.green)),
                           )
                         ],
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ))
         ],

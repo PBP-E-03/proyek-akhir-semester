@@ -32,6 +32,7 @@ class TextFieldComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
+      width: MediaQuery.of(context).size.width,
       // Using padding of 8 pixels
       child: TextFormField(
         obscureText: isTextObscured,
