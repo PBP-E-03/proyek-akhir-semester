@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AccountSection extends StatelessWidget {
-  const AccountSection({super.key});
+  const AccountSection({super.key, required this.donationTotal, this.country});
+  final int donationTotal;
+  final String? country;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +47,9 @@ class AccountSection extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "1000",
-                            style: TextStyle(
+                          Text(
+                            "$donationTotal",
+                            style: const TextStyle(
                                 fontSize: 28, fontWeight: FontWeight.bold),
                           ),
                           OutlinedButton(
@@ -93,10 +95,14 @@ class AccountSection extends StatelessWidget {
                         )
                       ],
                     ),
-                    const Text(
-                      "Indonesia",
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      country ?? "No donation record found. Let's Donate!",
+                      style: TextStyle(
+                          fontSize: country != null ? 28 : 14,
+                          fontWeight: FontWeight.bold),
                     )
                   ],
                 ),

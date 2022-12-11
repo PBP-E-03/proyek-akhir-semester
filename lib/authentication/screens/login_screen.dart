@@ -149,9 +149,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               if (response['refresh'] != null &&
                                   response['access'] != null) {
-                                SecureStorageService.write(
+                                await SecureStorageService.write(
                                     "refreshToken", response['refresh']);
-                                SecureStorageService.write(
+                                await SecureStorageService.write(
                                     "accessToken", response['access']);
 
                                 Future.delayed(Duration.zero).then((value) =>

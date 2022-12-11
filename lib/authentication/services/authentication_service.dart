@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pbp_e_03_flutter/authentication/models/email_validation_model.dart';
 import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
+import 'package:pbp_e_03_flutter/authentication/models/user_model.dart';
 import 'package:pbp_e_03_flutter/shared/service/http_service.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +46,14 @@ class AuthenticationService {
     return response;
   }
 
+  static Future<User> getUser() async {
+    dynamic response = await HttpService.get("user");
+
+    User user = User.fromJson(response);
+
+    return user;
+  }
+
   static Future<bool> isAuthenticated() async {
     String? accessToken = await SecureStorageService.read("accessToken");
 
@@ -66,13 +75,13 @@ class AuthenticationService {
 
           Map<String, String> body = {"refresh": refreshToken};
 
-          Response response =
-              await http.post(Uri.parse("http://localhost:8000/auth/refresh"),
-                  headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                  },
-                  body: jsonEncode(body));
+          Response response = await http.post(
+              Uri.parse(
+                  "${const String.fromEnvironment("API_URL")}/auth/refresh"),
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: jsonEncode(body));
 
           dynamic data = jsonDecode(utf8.decode(response.bodyBytes));
 

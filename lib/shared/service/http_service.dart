@@ -21,6 +21,9 @@ class HttpService {
     await _authorizeHeader(isAuthenticated);
 
     Response response = await http.get(url, headers: headers);
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
 
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
@@ -33,6 +36,9 @@ class HttpService {
 
     Response response =
         await http.post(url, headers: headers, body: jsonEncode(body));
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
 
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
@@ -48,5 +54,11 @@ class HttpService {
             MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     }
+  }
+
+  static void _handleUnauthorizedRequest() async {
+    await SecureStorageService.destroyAll();
+    navigatorKey.currentState?.pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
