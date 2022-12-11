@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
+import 'package:pbp_e_03_flutter/donation/screens/donation_screen.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   const MainLayoutScreen({super.key});
@@ -17,7 +18,7 @@ class MainLayoutScreen extends StatelessWidget {
                 HomeScreen(), // Change this for history screen
                 HomeScreen(), // Change this for market screen
                 HomeScreen(),
-                HomeScreen(), // Change this for donation screen
+                DonationScreen(), // Change this for donation screen
                 HomeScreen() // Change this for leader board screen
               ])),
               bottomNavigationBar: Container(

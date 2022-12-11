@@ -18,5 +18,5 @@ do
         RUN_COMMAND="$RUN_COMMAND --dart-define $line"
     fi
 done < "$ENV_FILE"
-
+echo "$RUN_COMMAND"
 eval $RUN_COMMAND
