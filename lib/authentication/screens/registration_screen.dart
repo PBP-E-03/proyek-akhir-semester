@@ -20,9 +20,9 @@ class RegistrationScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width,
+                  Expanded(
+                    // height: MediaQuery.of(context).size.height * 0.2,
+                    // width: MediaQuery.of(context).size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,16 +35,16 @@ class RegistrationScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(vertical: 24),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(40),
-                              bottom: Radius.circular(0))),
-                      child: const RegistrationStepperComponent())
+                  Expanded(
+                      flex: 3,
+                      child: Container(
+                          padding: const EdgeInsets.only(top: 24),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(40),
+                                  bottom: Radius.circular(0))),
+                          child: const RegistrationStepperComponent()))
                 ],
               ))),
     );

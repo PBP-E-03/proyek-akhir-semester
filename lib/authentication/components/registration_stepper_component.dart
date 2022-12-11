@@ -131,9 +131,9 @@ class _RegistrationStepperComponentState
           isActive: _step >= 1,
           title: const Text(""),
           content: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.54,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: MediaQuery.of(context).size.height * 0.548,
+            child: Stack(
+              fit: StackFit.expand,
               children: [
                 Column(
                   children: [
@@ -155,10 +155,14 @@ class _RegistrationStepperComponentState
                     ),
                   ],
                 ),
-                StepperControllerComponent(
-                    currentStep: _step,
-                    nextStep: nextStep,
-                    previousStep: previousStep)
+                Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: StepperControllerComponent(
+                        currentStep: _step,
+                        nextStep: nextStep,
+                        previousStep: previousStep))
               ],
             ),
           ))
