@@ -14,7 +14,8 @@ class BottomNavigationBarComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     var currentScreen = Provider.of<ScreenState>(context).getCurrentScreen;
 
-    return SizedBox(
+    return Container(
+      color: Colors.transparent.withOpacity(0),
       width: MediaQuery.of(context).size.width,
       height: 80,
       child: Stack(
@@ -40,7 +41,8 @@ class BottomNavigationBarComponents extends StatelessWidget {
                 },
                 child: const Icon(Icons.forest)),
           ),
-          SizedBox(
+          Container(
+            color: Colors.transparent,
             width: MediaQuery.of(context).size.width,
             height: 80,
             child: Row(

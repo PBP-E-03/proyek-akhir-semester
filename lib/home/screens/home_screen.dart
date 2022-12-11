@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:pbp_e_03_flutter/authentication/screens/login_screen.dart';
-import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
+import 'package:pbp_e_03_flutter/home/components/account_section.dart';
 import 'package:pbp_e_03_flutter/home/components/bottom_navigation_bar_component.dart';
-import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
+import 'package:pbp_e_03_flutter/home/components/faq_section.dart';
+import 'package:pbp_e_03_flutter/home/components/news_section.dart';
+import 'package:pbp_e_03_flutter/home/components/profile_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,28 +17,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          child: Column(
-            children: [
-              const Center(
-                child: Text("Hello user"),
-              ),
-              Center(
-                child: ElevatedButton(
-                    onPressed: () async {
-                      await AuthenticationService.logoutUser();
-
-                      await SecureStorageService.destroyAll();
-
-                      Future.delayed(Duration.zero).then((value) =>
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen())));
-                    },
-                    child: const Text("logout")),
-              )
-            ],
+            child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
+            child: Column(
+              children: [
+                const ProfileSection(),
+                const SizedBox(
+                  height: 18,
+                ),
+                const AccountSection(),
+                const SizedBox(
+                  height: 18,
+                ),
+                NewsSection(),
+                const SizedBox(
+                  height: 18,
+                ),
+                const FAQSection(),
+              ],
+            ),
           ),
-        ),
+        )),
         bottomNavigationBar: const BottomNavigationBarComponents(
           currentPage: 'Home',
         ));
