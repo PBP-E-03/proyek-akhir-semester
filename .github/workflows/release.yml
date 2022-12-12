@@ -44,7 +44,7 @@ jobs:
       - name: Build APK
         env:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --split-per-abi --dart-define API_URL="https://api-generositree.up.railway.app" --dart-define ENV="dev"
 
       - name: Get current date
         id: date
