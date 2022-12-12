@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:pbp_e_03_flutter/profile/screens/profile_screen.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({super.key, required this.name, required this.coin});
@@ -47,7 +46,10 @@ class ProfileSection extends StatelessWidget {
           ],
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          },
           child: const Icon(Icons.menu),
         )
       ],
