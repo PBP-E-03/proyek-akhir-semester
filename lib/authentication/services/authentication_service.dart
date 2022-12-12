@@ -47,11 +47,13 @@ class AuthenticationService {
   }
 
   static Future<User> getUser() async {
-    dynamic response = await HttpService.get("user");
-
-    User user = User.fromJson(response);
-
-    return user;
+    try {
+      dynamic response = await HttpService.get("user");
+      User user = User.fromJson(response);
+      return user;
+    } catch (e) {
+      return Future.error("Oops! Something went wrong");
+    }
   }
 
   static Future<bool> isAuthenticated() async {

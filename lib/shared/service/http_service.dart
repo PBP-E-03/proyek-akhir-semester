@@ -36,6 +36,7 @@ class HttpService {
 
     Response response =
         await http.post(url, headers: headers, body: jsonEncode(body));
+
     if (response.statusCode == 401 && endpoint != 'auth/login') {
       _handleUnauthorizedRequest();
     }

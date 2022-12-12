@@ -39,14 +39,14 @@ class Content {
     required this.email,
     required this.coin,
     required this.totalDonatedTree,
-    required this.mostDonatedCountry,
+    this.mostDonatedCountry,
   });
 
   String name;
   String email;
   int coin;
   int totalDonatedTree;
-  String mostDonatedCountry;
+  String? mostDonatedCountry;
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
         name: json["name"],

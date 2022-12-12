@@ -22,18 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FutureBuilder(
           future: AuthenticationService.getUser(),
           builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-            if (snapshot.data == null) {
+            if (snapshot.hasError) {
+              Future.delayed(Duration.zero).then((value) =>
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(snapshot.error.toString()))));
               return const Center(child: CircularProgressIndicator());
-            } else if (!snapshot.hasData) {
-              return Column(
-                children: const [
-                  Text(
-                    "Watch list is empty :(",
-                    style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                  ),
-                  SizedBox(height: 8),
-                ],
-              );
+            } else if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
             } else {
               return SingleChildScrollView(
                 child: Padding(
