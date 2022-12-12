@@ -151,7 +151,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     Profile response =
                                         await ProfileService.updateProfile(
                                             body);
-                                    print(response);
+
                                     Future.delayed(Duration.zero).then(
                                         (value) => ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
@@ -167,7 +167,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
-                                child: const Text("Edit",
+                                child: const Text("Edit Profile",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

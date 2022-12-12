@@ -23,4 +23,14 @@ class ProfileService {
       return Future.error("Oops! Something went wrong");
     }
   }
+
+  static Future<dynamic> changePassword(Map<String, String> body) async {
+    try {
+      dynamic response = await HttpService.put("profile/update-password", body);
+
+      return response;
+    } catch (e) {
+      return Future.error("Oops! Something went wrong");
+    }
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:pbp_e_03_flutter/profile/screens/change_password_screen.dart';
 import 'package:pbp_e_03_flutter/profile/screens/edit_profile_screen.dart';
 
 class EditProfileSection extends StatelessWidget {
@@ -52,10 +51,10 @@ class EditProfileSection extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const RegistrationScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChangePasswordScreen()));
                 },
                 child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
