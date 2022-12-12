@@ -46,6 +46,7 @@ dependencies:
   url_launcher: ^6.1.7
   rounded_expansion_tile: ^0.0.13
   flutter_native_splash: ^2.2.16
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
