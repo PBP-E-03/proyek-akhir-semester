@@ -44,6 +44,26 @@ class HttpService {
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
 
+  static Future put(String endpoint, Map<String, dynamic> body,
+      {bool isAuthenticated = true}) async {
+    Uri url = Uri.parse(path.join(_baseUrl, endpoint));
+    print("body: $body");
+
+    await _authorizeHeader(isAuthenticated);
+    print("test");
+
+    Response response =
+        await http.put(url, headers: headers, body: jsonEncode(body));
+
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
+
+    print("test");
+
+    return jsonDecode(utf8.decode(response.bodyBytes));
+  }
+
   static Future<void> _authorizeHeader(bool isAuthenticated) async {
     if (isAuthenticated) {
       String? accessToken = await SecureStorageService.read("accessToken");

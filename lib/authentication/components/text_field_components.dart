@@ -6,6 +6,7 @@ class TextFieldComponent extends StatelessWidget {
       {super.key,
       required this.labelText,
       this.hintText,
+      this.initialValue,
       this.height,
       this.keyboardType,
       this.inputFormatter,
@@ -23,8 +24,9 @@ class TextFieldComponent extends StatelessWidget {
   final int? maxLines;
   final double? height;
   final bool isTextObscured;
+  final String? initialValue;
 
-  void handleChangeAction(String? value) {
+  void handleAction(String? value) {
     action(value);
   }
 
@@ -35,11 +37,13 @@ class TextFieldComponent extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       // Using padding of 8 pixels
       child: TextFormField(
+        initialValue: initialValue,
         obscureText: isTextObscured,
         maxLines: maxLines,
         keyboardType: keyboardType,
         inputFormatters: inputFormatter,
         textAlignVertical: TextAlignVertical.top,
+
         // Only numbers can be entered,
         // Only numbers can be entered
         decoration: InputDecoration(
@@ -49,7 +53,8 @@ class TextFieldComponent extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         ),
         // Added behavior when name is typed
-        onChanged: handleChangeAction,
+        onChanged: handleAction,
+        onSaved: handleAction,
         // Validator as form validation
         validator: validator,
       ),
