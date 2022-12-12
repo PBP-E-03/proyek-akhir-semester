@@ -56,13 +56,15 @@ class _LoginScreenState extends State<LoginScreen> {
             SliderComponent(
                 height: MediaQuery.of(context).size.height * 0.525,
                 items: widget.list
-                    .map((item) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.green),
+                    .map((item) => Card(
+                          margin: const EdgeInsets.all(12),
+                          color: Colors.green,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 0),
                             child: Center(
                                 child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

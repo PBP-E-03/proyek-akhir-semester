@@ -36,7 +36,7 @@ class ProfileSection extends StatelessWidget {
                       color: Colors.orange,
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 5,
                     ),
                     Text("$coin")
                   ],

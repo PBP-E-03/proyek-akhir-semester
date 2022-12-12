@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pbp_e_03_flutter/history/screens/history_screen.dart';
 import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/main.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ class BottomNavigationBarComponents extends StatelessWidget {
                   Navigator.of(context).pop();
                   if (currentPage != "Donation") {
                     Provider.of<ScreenState>(context, listen: false)
-                        .setCurrentScreen(0);
+                        .setCurrentScreen(4);
                     // Navigator.pushReplacement(
                     //     context,
                     //     MaterialPageRoute(
@@ -114,11 +115,11 @@ class BottomNavigationBarComponents extends StatelessWidget {
                     onPressed: () {
                       if (currentPage != "History") {
                         Provider.of<ScreenState>(context, listen: false)
-                            .setCurrentScreen(0);
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const Counter7()));
+                            .setCurrentScreen(3);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HistoryScreen()));
                       }
                     }),
               ],
