@@ -51,15 +51,19 @@ class HttpService {
       if (await AuthenticationService.isAuthenticated()) {
         headers['Authorization'] = "Bearer $accessToken";
       } else {
-        navigatorKey.currentState?.pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()));
+        navigatorKey.currentState?.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false,
+        );
       }
     }
   }
 
   static void _handleUnauthorizedRequest() async {
     await SecureStorageService.destroyAll();
-    navigatorKey.currentState?.pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
+    navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (route) => false,
+    );
   }
 }

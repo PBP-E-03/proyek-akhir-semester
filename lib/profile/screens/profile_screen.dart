@@ -54,10 +54,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         await SecureStorageService.destroyAll();
 
-                        Future.delayed(Duration.zero).then((value) =>
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen())));
+                        Future.delayed(Duration.zero).then(
+                            (value) => Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                  (route) => false,
+                                ));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
