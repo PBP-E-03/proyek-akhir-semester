@@ -19,8 +19,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
           title: 'GenerosiTree',
-          debugShowCheckedModeBanner:
-              const String.fromEnvironment("ENV") == "prod" ? false : true,
+          debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           theme: ThemeData(
             primarySwatch: Colors.green,

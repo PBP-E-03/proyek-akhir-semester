@@ -10,7 +10,7 @@ import 'package:pbp_e_03_flutter/main.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class HttpService {
-  static const String _baseUrl = String.fromEnvironment("API_URL");
+  static const String _baseUrl = "https://api-generositree.up.railway.app";
   static final Map<String, String> headers = {
     "Content-Type": "application/json",
   };

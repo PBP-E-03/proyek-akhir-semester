@@ -1,5 +1,7 @@
 # Proyek Akhir Semester Kelompok-E 03
 
+[![Build status](https://build.appcenter.ms/v0.1/apps/bdf2d081-c699-4a07-ad6d-3ad1cdd8834a/branches/main/badge)](https://appcenter.ms)
+
 ## Anggota Kelompok-E 03:
 
 1. Adjie Djaka Permana - 2106702485
