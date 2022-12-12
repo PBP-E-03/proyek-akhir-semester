@@ -5,6 +5,7 @@ import 'package:pbp_e_03_flutter/donation/screens/donation_screen.dart';
 import 'package:pbp_e_03_flutter/history/screens/history_screen.dart';
 import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/main.dart';
+import 'package:pbp_e_03_flutter/market/screens/market_screen.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationBarComponents extends StatelessWidget {
@@ -97,10 +98,10 @@ class BottomNavigationBarComponents extends StatelessWidget {
                       if (currentPage != "Store") {
                         Provider.of<ScreenState>(context, listen: false)
                             .setCurrentScreen(0);
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const Counter7()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MarketScreen()));
                       }
                     }),
                 IconButton(
