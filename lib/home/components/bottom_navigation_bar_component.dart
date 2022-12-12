@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pbp_e_03_flutter/donation/screens/donation_screen.dart';
 import 'package:pbp_e_03_flutter/history/screens/history_screen.dart';
 import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/main.dart';
@@ -15,8 +16,7 @@ class BottomNavigationBarComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     var currentScreen = Provider.of<ScreenState>(context).getCurrentScreen;
 
-    return Container(
-      color: Colors.transparent.withOpacity(0),
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 80,
       child: Stack(
@@ -30,20 +30,18 @@ class BottomNavigationBarComponents extends StatelessWidget {
             child: FloatingActionButton(
                 elevation: 0.1,
                 onPressed: () {
-                  Navigator.of(context).pop();
                   if (currentPage != "Donation") {
                     Provider.of<ScreenState>(context, listen: false)
                         .setCurrentScreen(4);
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Counter7()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DonationScreen()));
                   }
                 },
                 child: const Icon(Icons.forest)),
           ),
-          Container(
-            color: Colors.transparent,
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 80,
             child: Row(
