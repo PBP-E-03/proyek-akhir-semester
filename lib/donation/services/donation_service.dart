@@ -30,6 +30,24 @@ class DonationService {
     
   }
 
+  static Future<Map<String, String>> getCountryObjects() async {
+    dynamic response = await HttpService.get("location");
+    // print(response);
+
+    dynamic data = response;
+    
+    dynamic countries_data = data["content"]["countries"];
+    // print(countries_data);
+    Map<String, String> code_and_country = {};
+    for (var element in countries_data) {
+      code_and_country[element['name']] = element['code'];
+    }
+
+    return code_and_country;
+
+    
+  }
+
   static Future<File> pickFile() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['png', 'jpg', 'jpeg']);
