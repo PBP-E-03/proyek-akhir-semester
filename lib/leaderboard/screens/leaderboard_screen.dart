@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WatchlistDetails extends StatefulWidget {
-  final int pk;
-
-  const WatchlistDetails({super.key, required this.pk});
+class LeaderBoardScreen extends StatefulWidget {
+  const LeaderBoardScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _WatchlistDetailsState();
+  State<StatefulWidget> createState() => _LeaderBoardScreenState();
 }
 
-class _WatchlistDetailsState extends State<WatchlistDetails> {
+class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +49,7 @@ class _WatchlistDetailsState extends State<WatchlistDetails> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'rating: ${[widget.pk]}',
+                        'rating',
                         style: TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontSize: 20,
@@ -208,7 +206,7 @@ class _WatchlistDetailsState extends State<WatchlistDetails> {
 //                     itemBuilder: (_, index)=> InkWell(
 //                       onTap: () {
 //                         Navigator.push(
-//                           context, MaterialPageRoute(builder: (context) => WatchlistDetails(pk: snapshot.data[index].pk - 1,))
+//                           context, MaterialPageRoute(builder: (context) => LeaderBoardScreen(pk: snapshot.data[index].pk - 1,))
 //                         );
 //                       },
                       
