@@ -41,7 +41,7 @@ String ProductToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 Future<Map<String, dynamic>> fetchData(int page) async {
-  const String _baseUrl = String.fromEnvironment("API_URL");
+  const String _baseUrl = "https://api-generositree.up.railway.app";
   final Map<String, String> headers = {
     "Content-Type": "application/json",
   };
