@@ -21,6 +21,9 @@ class HttpService {
     await _authorizeHeader(isAuthenticated);
 
     Response response = await http.get(url, headers: headers);
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
 
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
@@ -34,6 +37,26 @@ class HttpService {
     Response response =
         await http.post(url, headers: headers, body: jsonEncode(body));
 
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
+
+    return jsonDecode(utf8.decode(response.bodyBytes));
+  }
+
+  static Future put(String endpoint, Map<String, dynamic> body,
+      {bool isAuthenticated = true}) async {
+    Uri url = Uri.parse(path.join(_baseUrl, endpoint));
+
+    await _authorizeHeader(isAuthenticated);
+
+    Response response =
+        await http.put(url, headers: headers, body: jsonEncode(body));
+
+    if (response.statusCode == 401 && endpoint != 'auth/login') {
+      _handleUnauthorizedRequest();
+    }
+
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
 
@@ -44,9 +67,19 @@ class HttpService {
       if (await AuthenticationService.isAuthenticated()) {
         headers['Authorization'] = "Bearer $accessToken";
       } else {
-        navigatorKey.currentState?.pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()));
+        navigatorKey.currentState?.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false,
+        );
       }
     }
+  }
+
+  static void _handleUnauthorizedRequest() async {
+    await SecureStorageService.destroyAll();
+    navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (route) => false,
+    );
   }
 }

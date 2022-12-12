@@ -5,7 +5,7 @@ import 'package:pbp_e_03_flutter/authentication/components/stepper_controller_co
 import 'package:pbp_e_03_flutter/authentication/models/email_validation_model.dart';
 import 'package:pbp_e_03_flutter/authentication/models/token_model.dart';
 import 'package:pbp_e_03_flutter/authentication/services/authentication_service.dart';
-import 'package:pbp_e_03_flutter/home/screens/main_layout_screen.dart';
+import 'package:pbp_e_03_flutter/home/screens/home_screen.dart';
 import 'package:pbp_e_03_flutter/shared/service/secure_storage_service.dart';
 
 class RegistrationStepperComponent extends StatefulWidget {
@@ -49,7 +49,7 @@ class _RegistrationStepperComponentState
           await SecureStorageService.write("accessToken", accessToken);
           Future.delayed(Duration.zero).then((value) =>
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const MainLayoutScreen(),
+                builder: (context) => const HomeScreen(),
               )));
         } else {
           Future.delayed(Duration.zero).then((value) =>
@@ -131,9 +131,9 @@ class _RegistrationStepperComponentState
           isActive: _step >= 1,
           title: const Text(""),
           content: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.54,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            height: MediaQuery.of(context).size.height * 0.548,
+            child: Stack(
+              fit: StackFit.expand,
               children: [
                 Column(
                   children: [
@@ -155,10 +155,14 @@ class _RegistrationStepperComponentState
                     ),
                   ],
                 ),
-                StepperControllerComponent(
-                    currentStep: _step,
-                    nextStep: nextStep,
-                    previousStep: previousStep)
+                Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: StepperControllerComponent(
+                        currentStep: _step,
+                        nextStep: nextStep,
+                        previousStep: previousStep))
               ],
             ),
           ))
